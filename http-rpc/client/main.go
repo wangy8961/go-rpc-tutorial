@@ -23,14 +23,14 @@ func main() {
 	// 连接 RPC 服务端
 	client, err := rpc.DialHTTP("tcp", *serverAddress)
 	if err != nil {
-		log.Fatal("dialing:", err)
+		log.Fatal("dialing: ", err)
 	}
 	// 同步调用
 	args := &Args{3, 4}
 	var reply int
 	err = client.Call("Arith.Multiply", args, &reply)
 	if err != nil {
-		log.Fatal("arith error:", err)
+		log.Fatal("arith error: ", err)
 	}
 	fmt.Printf("Arith: %d*%d=%d\n", args.A, args.B, reply)
 
@@ -38,6 +38,7 @@ func main() {
 	quotient := new(Quotient)
 	divCall := client.Go("Arith.Divide", args, quotient, nil)
 	// 在上面的异步调用命令发出之后，客户端可以去执行其它的任务
+	// do something here
 	replyCall := <-divCall.Done // divCall.Done 是一个 channel，如果 RPC 异步调用有结果了，就可以从 chan 中读取到值
 	// check errors, print, etc.
 	if err := replyCall.Error; err != nil {

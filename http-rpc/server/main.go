@@ -40,7 +40,7 @@ func main() {
 	// 启动 HTTP 服务器，监听在 1234 端口
 	l, e := net.Listen("tcp", ":1234")
 	if e != nil {
-		log.Fatal("listen error:", e)
+		log.Fatal("listen error: ", e)
 	}
 	http.Serve(l, nil)
 
