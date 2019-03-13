@@ -21,7 +21,7 @@ func main() {
 	flag.Parse()
 
 	// 连接 RPC 服务端
-	client, err := rpc.DialHTTP("tcp", *serverAddress)
+	client, err := rpc.Dial("tcp", *serverAddress) // 与 HTTP RPC 客户端代码唯一的区别，它通过 net.Dial() 方法去创建 TCP 连接
 	if err != nil {
 		log.Fatal("dialing: ", err)
 	}
