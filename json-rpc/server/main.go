@@ -5,6 +5,7 @@ import (
 	"log"
 	"net"
 	"net/rpc"
+	"net/rpc/jsonrpc"
 )
 
 type Args struct {
@@ -48,7 +49,7 @@ func main() {
 			log.Println("connection error: ", err)
 			continue
 		}
-		// RPC 会处理客户端发来的 TCP 请求
-		rpc.ServeConn(conn)
+		// 启动 JSON-RPC Server，处理客户端发来的 TCP 请求
+		jsonrpc.ServeConn(conn)
 	}
 }
